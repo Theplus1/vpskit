@@ -19,6 +19,7 @@ git clone https://github.com/Theplus1/vpskit.git $INSTALL_DIR
 
 # Make scripts executable
 chmod +x $INSTALL_DIR/bin/*.sh
+chmod +x $INSTALL_DIR/vpskit.sh
 
 # Create a symlink for easy command access
 ln -sf $INSTALL_DIR/vpskit.sh /usr/local/bin/vpskit.sh
