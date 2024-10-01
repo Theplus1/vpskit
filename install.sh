@@ -25,4 +25,7 @@ chmod +x $INSTALL_DIR/vpskit.sh
 ln -sf $INSTALL_DIR/vpskit.sh /usr/local/bin/vpskit
 chmod +x /usr/local/vpskit/vpskit.sh
 
-echo "Installation complete. You can now use 'vpskit {nginx|nodejs|deploy}' to run commands."
+# Ignore file mode changes in Git 
+git config core.filemode false
+
+echo "Installation complete. You can now use 'vpskit -help' to view commands."

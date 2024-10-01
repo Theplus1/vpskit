@@ -13,9 +13,11 @@ function show_help() {
     echo "  scale-redis           Scale a Redis cluster"
     echo "  scale-redis-revert    Revert a Redis cluster scaling"
     echo "  gh-webhook            Setup GitHub webhook for deployment"
+    echo "  add-domain            Add a new sellpage domain"
+    echo "  add-domain {domain}   Quick add a new sellpage domain"
     echo ""
     echo "Options:"
-    echo "  -help      Show this help message"
+    echo "  -help                 Show this help message"
     echo ""
 }
 
@@ -41,6 +43,9 @@ case $1 in
     ;;
   gh-webhook)
     $INSTALL_DIR/bin/setup-github-webhook.sh
+    ;;
+  add-domain)
+    $INSTALL_DIR/bin/add-domain.sh
     ;;
   update)
     echo "Updating scripts..."
