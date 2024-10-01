@@ -26,6 +26,9 @@ fi
 
 # Main script logic based on the command passed
 case $1 in
+  kyc-hosting)
+    $INSTALL_DIR/bin/deploy-kyc-website.sh
+    ;;
   sellpage-hosting)
     $INSTALL_DIR/bin/initialize-sellpage-hosting.sh
     ;;
