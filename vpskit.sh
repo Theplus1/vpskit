@@ -50,6 +50,7 @@ case $1 in
   update)
     echo "Updating scripts..."
     git -C $INSTALL_DIR pull
+    chmod +x $INSTALL_DIR/vpskit.sh
     ;;
   *)
     echo "Error: Invalid command"
