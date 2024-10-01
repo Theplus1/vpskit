@@ -22,6 +22,7 @@ chmod +x $INSTALL_DIR/bin/*.sh
 chmod +x $INSTALL_DIR/vpskit.sh
 
 # Create a symlink for easy command access
-ln -sf $INSTALL_DIR/vpskit.sh /usr/local/bin/vpskit.sh
+ln -sf $INSTALL_DIR/vpskit.sh /usr/local/bin/vpskit
+chmod +x /usr/local/vpskit/vpskit.sh
 
 echo "Installation complete. You can now use 'vpskit {nginx|nodejs|deploy}' to run commands."
