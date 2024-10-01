@@ -3,6 +3,8 @@
 # Define the installation directory where scripts are stored
 INSTALL_DIR="/usr/local/vpskit"
 
+chmod +x $INSTALL_DIR/bin/*.sh
+
 # Function to display help information
 function show_help() {
     echo "Usage: vpskit {command}"
