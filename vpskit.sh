@@ -8,6 +8,7 @@ function show_help() {
     echo "Usage: vpskit {command}"
     echo ""
     echo "Commands:"
+    echo "  kyc-hosting           Initialize hosting for a KYC website"
     echo "  sellpage-hosting      Initialize hosting for a Sellpage"
     echo "  scale-redis           Scale a Redis cluster"
     echo "  scale-redis-revert    Revert a Redis cluster scaling"
