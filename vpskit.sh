@@ -19,13 +19,21 @@ function show_help() {
     echo "  add-domain {domain}   Quick add a new sellpage domain"
     echo ""
     echo "Options:"
-    echo "  -help                 Show this help message"
+    echo "  -help | -h            Show this help message"
+    echo "  -update | -u          Update the vpskit scripts"
     echo ""
 }
 
 # Check if -help is passed as an argument
-if [[ "$1" == "-help" || "$1" == "--help" ]]; then
+if [[ "$1" == "-help" || "$1" == "-h" ]]; then
     show_help
+    exit 0
+fi
+
+if [[ "$1" == "-update" || "$1" == "-u" ]]; then
+    echo "Updating scripts..."
+    git -C $INSTALL_DIR pull
+    chmod +x $INSTALL_DIR/vpskit.sh
     exit 0
 fi
 
@@ -48,11 +56,6 @@ case $1 in
     ;;
   add-domain)
     $INSTALL_DIR/bin/add-domain.sh
-    ;;
-  update)
-    echo "Updating scripts..."
-    git -C $INSTALL_DIR pull
-    chmod +x $INSTALL_DIR/vpskit.sh
     ;;
   *)
     echo "Error: Invalid command"

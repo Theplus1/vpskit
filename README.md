@@ -1,6 +1,7 @@
-# How to install:
+> **vpskit** require Github **username** and **personal access token** to work. See [how to get GH access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token)
+> 
+## How to install:
 
-vpskit require Github **username** and **personal access token** to work. View [how to get GH access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token)
 `curl -s -o /tmp/install.sh https://raw.githubusercontent.com/Theplus1/vpskit/refs/heads/main/install.sh && bash /tmp/install.sh`
 
 ## Setup new VPS for hosting sellpage
