@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # Check if GITHUB_USERNAME and GITHUB_TOKEN are not defined
-if [[ -z "$GITHUB_USERNAME" || -z "$GITHUB_TOKEN" ]]; then
+if [[ -z "$GITHUB_USERNAME" || -z "$GITHUB_SECRET" ]]; then
   echo "GitHub credentials are not found. Please enter your GitHub credentials."
   read -p "GitHub Username: " GITHUB_USERNAME
-  read -sp "GitHub Personal Access Token (PAT): " GITHUB_TOKEN
+  read -sp "GitHub Personal Access Token (PAT): " GITHUB_SECRET
   echo
   # Export the credentials as environment variables
   export GITHUB_USERNAME
-  export GITHUB_TOKEN
+  export GITHUB_SECRET
 fi
 
 # Define the installation directory where scripts are stored
