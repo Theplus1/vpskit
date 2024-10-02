@@ -6,9 +6,16 @@ if [[ -z "$GITHUB_USERNAME" || -z "$GITHUB_SECRET" ]]; then
   read -p "GitHub Username: " GITHUB_USERNAME
   read -sp "GitHub Personal Access Token (PAT): " GITHUB_SECRET
   echo
-  # Export the credentials as environment variables
-  export GITHUB_USERNAME
-  export GITHUB_SECRET
+  # Optionally save the credentials to ~/.bashrc for future sessions
+  if ! grep -q "GITHUB_USERNAME" ~/.bashrc; then
+    echo "export GITHUB_USERNAME=$GITHUB_USERNAME" >> ~/.bashrc
+  fi
+  if ! grep -q "GITHUB_SECRET" ~/.bashrc; then
+    echo "export GITHUB_SECRET=$GITHUB_SECRET" >> ~/.bashrc
+  fi
+
+  # Source ~/.bashrc to apply immediately for the current session
+  source ~/.bashrc
 fi
 
 # Define the installation directory where scripts are stored
