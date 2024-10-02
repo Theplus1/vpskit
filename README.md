@@ -14,7 +14,6 @@ Execute command: `vpskit kyc-hosting`
 
 ## Available commands
 
-
 | Commands              | Description                          |
 | ----------------------- | -------------------------------------- |
 | `kyc-hosting`         | Initialize hosting for a KYC website |
@@ -24,3 +23,9 @@ Execute command: `vpskit kyc-hosting`
 | `gh-webhook`          | Setup GitHub webhook for deployment  |
 | `add-domain`          | Add a new sellpage domain            |
 | `add-domain {domain}` | Quick add a new sellpage domain      |
+
+## Available options
+| Options              | Description                          |
+| ----------------------- | -------------------------------------- |
+| `-help`              | Show help                            |
+| `-update`            | Update vpskit changes                |
