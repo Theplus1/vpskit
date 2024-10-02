@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# Check if GITHUB_USERNAME and GITHUB_TOKEN are not defined
+if [[ -z "$GITHUB_USERNAME" || -z "$GITHUB_TOKEN" ]]; then
+  echo "GitHub credentials are not found. Please enter your GitHub credentials."
+  read -p "GitHub Username: " GITHUB_USERNAME
+  read -sp "GitHub Personal Access Token (PAT): " GITHUB_TOKEN
+  echo
+  # Export the credentials as environment variables
+  export GITHUB_USERNAME
+  export GITHUB_TOKEN
+fi
+
 # Define the installation directory where scripts are stored
 INSTALL_DIR="/usr/local/vpskit"
 
