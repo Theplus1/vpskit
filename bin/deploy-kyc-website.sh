@@ -120,7 +120,7 @@ echo "Setting up WordPress from GitHub repository..."
 sudo mkdir -p $WEB_ROOT
 cd /www/wwwroot/
 sudo git clone $GIT_REPO
-sudo mv /www/wwwroot/repocuatoi/freshlife247/* $WEB_ROOT/
+sudo mv /www/wwwroot/kyc-website/freshlife247/* $WEB_ROOT/
 
 # Set ownership and permissions
 sudo chown -R nginx:nginx $WEB_ROOT
