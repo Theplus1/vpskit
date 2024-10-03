@@ -19,4 +19,7 @@ chmod +x /usr/local/vpskit/vpskit.sh
 cd /usr/local/vpskit
 git config core.filemode false
 
+echo 'export PATH=$PATH:/usr/local/bin' >> ~/.bashrc
+source ~/.bashrc
+
 echo "Installation complete. You can now use 'vpskit -help' to view commands."

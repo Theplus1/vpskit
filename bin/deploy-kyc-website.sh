@@ -3,13 +3,37 @@
 # Exit immediately if a command exits with a non-zero status.
 set -e
 
-# Prompt for project name
-read -p "Enter your domain name (remove .com): " PROJECT_NAME
+# Function to validate domain format
+validate_domain() {
+    local domain=$1
+    # Regular expression to validate domain name format
+    local regex='^([a-zA-Z0-9]+[.-_])*[a-zA-Z0-9]+(\.[a-zA-Z]{2,})+$'
+    if [[ ! $domain =~ $regex ]]; then
+        echo "Error: Invalid domain format $domain. Please provide a valid domain."
+        exit 1
+    fi
+}
 
+# Prompt for project name
+read -p "Enter your domain name: " DOMAIN
+
+# Check if a domain was provided
+if [ -z "$DOMAIN" ]; then
+    echo "No domain provided. Exiting..."
+    exit 1
+fi
+
+# Validate the domain format
+validate_domain "$DOMAIN"
+
+# Function to convert domain to project name convert . to _ and set value to PROJECT_NAME
+function domain_to_project_name() {
+    echo $DOMAIN | tr . _
+}
+PROJECT_NAME=$(domain_to_project_name)
 DB_NAME="${PROJECT_NAME}DB"
 DB_USER="${PROJECT_NAME}User"
 DB_PASS="${PROJECT_NAME}Pass"
-DOMAIN="${PROJECT_NAME}.com"
 WEB_ROOT="/www/wwwroot/$DOMAIN"
 SQL_FILE="/www/wwwroot/$PROJECT_NAME/seaminstoreDB.sql"
 MYSQL_ROOT_PASS="ThePlusOne2024@"

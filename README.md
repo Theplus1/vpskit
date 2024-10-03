@@ -2,7 +2,7 @@
 > 
 ## How to install:
 
-`curl -s https://raw.githubusercontent.com/Theplus1/vpskit/refs/heads/main/install.sh && | sudo bash`
+`curl -s https://raw.githubusercontent.com/Theplus1/vpskit/refs/heads/main/install.sh | sudo bash`
 
 ## Setup new VPS for hosting sellpage
 
@@ -25,7 +25,7 @@ Execute command: `vpskit kyc-hosting`
 | `add-domain {domain}` | Quick add a new sellpage domain      |
 
 ## Available options
-| Options              | Description                          |
+| Options              | Description                          |     
 | ----------------------- | -------------------------------------- |
 | `-help`              | Show help                            |
 | `-update`            | Update vpskit changes                |
