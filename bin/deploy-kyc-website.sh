@@ -143,7 +143,7 @@ sudo systemctl reload nginx
 echo "Setting up WordPress from GitHub repository..."
 sudo mkdir -p $WEB_ROOT
 cd /www/wwwroot/
-sudo git clone $GIT_REPO
+sudo git clone $GIT_REPO $PROJECT_NAME
 sudo mv /www/wwwroot/$PROJECT_NAME/freshlife247/* $WEB_ROOT/
 
 # Set ownership and permissions
