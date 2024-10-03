@@ -11,7 +11,7 @@ DB_USER="${PROJECT_NAME}User"
 DB_PASS="${PROJECT_NAME}Pass"
 DOMAIN="${PROJECT_NAME}.com"
 WEB_ROOT="/www/wwwroot/$DOMAIN"
-SQL_FILE="/www/wwwroot/kyc-website/seaminstoreDB.sql"
+SQL_FILE="/www/wwwroot/$PROJECT_NAME/seaminstoreDB.sql"
 MYSQL_ROOT_PASS="ThePlusOne2024@"
 GIT_REPO="https://$GITHUB_USERNAME:$GITHUB_SECRET@github.com/Theplus1/kyc-website.git" 
 
@@ -120,7 +120,7 @@ echo "Setting up WordPress from GitHub repository..."
 sudo mkdir -p $WEB_ROOT
 cd /www/wwwroot/
 sudo git clone $GIT_REPO
-sudo mv /www/wwwroot/kyc-website/freshlife247/* $WEB_ROOT/
+sudo mv /www/wwwroot/$PROJECT_NAME/freshlife247/* $WEB_ROOT/
 
 # Set ownership and permissions
 sudo chown -R nginx:nginx $WEB_ROOT
