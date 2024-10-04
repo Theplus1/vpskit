@@ -20,7 +20,7 @@ cleanup() {
 validate_domain() {
     local domain=$1
     # Regular expression to validate domain name format
-    local regex='^([a-zA-Z0-9]+[.-_])*[a-zA-Z0-9]+(\.[a-zA-Z]{2,})+$'
+    local regex='^([a-zA-Z0-9]+[.-])*[a-zA-Z0-9]+(\.[a-zA-Z]{2,})+$'
     if [[ ! $domain =~ $regex ]]; then
         echo "Error: Invalid domain format $domain. Please provide a valid domain."
         exit 1

@@ -4,7 +4,7 @@
 APP_NAME="buyer-web"                # Your app name
 APP_DIR="/var/www/$APP_NAME"        # Your app directory
 REPO_URL="https://$GITHUB_USERNAME:$GITHUB_SECRET@github.com/Theplus1/buyer-web.git"  # Your repo URL
-BRANCH="hosting"                    # Branch to pull
+BRANCH="main"                    # Branch to pull
 NGINX_SNIP="/etc/nginx/snippets/common.conf" # Nginx snippet path
 PORT=3000                           # The port the Next.js app will run on
 NODE_VERSION="20"                   # Specify the Node.js version
@@ -106,7 +106,7 @@ log_step $? "Project dependencies installation"
 # Build Next.js app
 echo "Building Next.js app..."
 rm .env.local
-cp .env.hosting .env.production
+cp .env.vps .env.production
 yarn build
 log_step $? "Next.js app build"
 
