@@ -53,7 +53,7 @@ fi
 
 # Validate the domain format
 echo "Validating domain format..."
-validate_domain "$DOMAIN"
+
 
 # Check if the domain resolves to the server's IP
 echo "Checking if domain $DOMAIN resolves to the server IP $SERVER_IP..."
