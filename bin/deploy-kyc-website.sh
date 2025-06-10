@@ -45,18 +45,18 @@ EMAIL=${EMAIL:-"tuandt@theplus1.net"}
 
 # Step 1: Install Nginx
 echo "Installing Nginx..."
-sudo dnf install nginx -y
+sudo apt update
+sudo apt install nginx -y
 sudo systemctl start nginx
 sudo systemctl enable nginx
-sudo firewall-cmd --permanent --zone=public --add-service=http
-sudo firewall-cmd --permanent --zone=public --add-service=https
-sudo firewall-cmd --reload
+sudo ufw allow 'Nginx Full'
+sudo ufw enable
 
 # Step 2: Install MySQL 8.0
 echo "Installing MySQL 8.0..."
-sudo dnf install mysql mysql-server expect -y
-sudo systemctl enable --now mysqld
-sudo systemctl start mysqld
+sudo apt install mysql-server expect -y
+sudo systemctl enable mysql
+sudo systemctl start mysql
 
 # Secure MySQL installation
 echo "Securing MySQL installation..."
@@ -90,11 +90,10 @@ FLUSH PRIVILEGES;
 
 # Step 3: Install PHP 7.4 and configure for large file uploads
 echo "Installing PHP 7.4 and configuring..."
-sudo dnf install epel-release -y
-sudo dnf install https://rpms.remirepo.net/enterprise/remi-release-9.rpm -y
-sudo dnf module reset php
-sudo dnf module enable php:remi-7.4 -y
-sudo dnf install php php-fpm php-mysqlnd -y
+sudo apt install software-properties-common -y
+sudo add-apt-repository ppa:ondrej/php -y
+sudo apt update
+sudo apt install php7.4 php7.4-fpm php7.4-mysql -y
 
 # Modify php.ini for large uploads
 echo "Configuring PHP settings for large uploads..."
