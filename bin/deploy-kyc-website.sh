@@ -79,14 +79,26 @@ send "y\r"
 expect eof
 EOF
 
-# Create MySQL database and user for WordPress
-echo "Creating MySQL database and user..."
-mysql -uroot -p"$MYSQL_ROOT_PASS" -e "
-CREATE DATABASE $DB_NAME;
-CREATE USER '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASS';
-GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'localhost';
-FLUSH PRIVILEGES;
-"
+# Create MySQL database and user for WordPress if they don't exist
+echo "Checking and creating MySQL database and user if needed..."
+mysql -uroot -p"$MYSQL_ROOT_PASS" -e "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '$DB_NAME'" | grep -q "$DB_NAME"
+if [ $? -ne 0 ]; then
+    echo "Creating database $DB_NAME..."
+    mysql -uroot -p"$MYSQL_ROOT_PASS" -e "CREATE DATABASE $DB_NAME;"
+else
+    echo "Database $DB_NAME already exists, skipping..."
+fi
+
+# Check if user exists, if not create it
+mysql -uroot -p"$MYSQL_ROOT_PASS" -e "SELECT User FROM mysql.user WHERE User = '$DB_USER'" | grep -q "$DB_USER"
+if [ $? -ne 0 ]; then
+    echo "Creating user $DB_USER..."
+    mysql -uroot -p"$MYSQL_ROOT_PASS" -e "CREATE USER '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASS';"
+    mysql -uroot -p"$MYSQL_ROOT_PASS" -e "GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'localhost';"
+    mysql -uroot -p"$MYSQL_ROOT_PASS" -e "FLUSH PRIVILEGES;"
+else
+    echo "User $DB_USER already exists, skipping..."
+fi
 
 # Step 3: Install PHP 7.4 and configure for large file uploads
 echo "Installing PHP 7.4 and configuring..."
@@ -139,11 +151,18 @@ sudo nginx -t
 sudo systemctl reload nginx
 
 # Step 5: Set Up WordPress and Database from GitHub Repository
-echo "Setting up WordPress from GitHub repository..."
-sudo mkdir -p $WEB_ROOT
-cd /www/wwwroot/
-sudo git clone $GIT_REPO $PROJECT_NAME
-sudo mv /www/wwwroot/$PROJECT_NAME/freshlife247/* $WEB_ROOT/
+echo "Checking if WordPress is already installed..."
+if [ ! -d "$WEB_ROOT" ] || [ -z "$(ls -A $WEB_ROOT)" ]; then
+    echo "Setting up WordPress from GitHub repository..."
+    sudo mkdir -p $WEB_ROOT
+    cd /www/wwwroot/
+    if [ ! -d "$PROJECT_NAME" ]; then
+        sudo git clone $GIT_REPO $PROJECT_NAME
+    fi
+    sudo mv /www/wwwroot/$PROJECT_NAME/freshlife247/* $WEB_ROOT/
+else
+    echo "WordPress directory already exists and is not empty, skipping installation..."
+fi
 
 # Set ownership and permissions
 sudo chown -R www-data:www-data $WEB_ROOT
