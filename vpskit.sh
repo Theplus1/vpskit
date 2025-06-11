@@ -36,6 +36,7 @@ function show_help() {
     echo "  gh-webhook-revert     Revert GitHub webhook for deployment"
     echo "  add-domain            Add a new sellpage domain"
     echo "  add-domain {domain}   Quick add a new sellpage domain"
+    echo "  build-buyer-web       Build buyer web"
     echo ""
     echo "Options:"
     echo "  -help | -h            Show this help message"
@@ -78,6 +79,9 @@ case $1 in
     ;;
   add-domain)
     $INSTALL_DIR/bin/add-domain.sh
+    ;;
+  build-buyer-web)
+    $INSTALL_DIR/bin/build-buyer-web.sh
     ;;
   *)
     echo "Error: Invalid command"
