@@ -97,9 +97,9 @@ sudo apt install php7.4 php7.4-fpm php7.4-mysql -y
 
 # Modify php.ini for large uploads
 echo "Configuring PHP settings for large uploads..."
-sudo sed -i 's/upload_max_filesize = .*/upload_max_filesize = 1024M/' /etc/php.ini
-sudo sed -i 's/post_max_size = .*/post_max_size = 1024M/' /etc/php.ini
-sudo sed -i 's/max_execution_time = .*/max_execution_time = 300/' /etc/php.ini
+sudo sed -i 's/upload_max_filesize = .*/upload_max_filesize = 1024M/' /etc/php/7.4/fpm/php.ini
+sudo sed -i 's/post_max_size = .*/post_max_size = 1024M/' /etc/php/7.4/fpm/php.ini
+sudo sed -i 's/max_execution_time = .*/max_execution_time = 300/' /etc/php/7.4/fpm/php.ini
 
 # Start and enable PHP-FPM
 sudo systemctl start php-fpm
@@ -123,7 +123,7 @@ server {
 
     location ~ \.php$ {
         include fastcgi_params;
-        fastcgi_pass unix:/var/run/php-fpm/www.sock;
+        fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
         fastcgi_index index.php;
         fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
     }
@@ -146,7 +146,7 @@ sudo git clone $GIT_REPO $PROJECT_NAME
 sudo mv /www/wwwroot/$PROJECT_NAME/freshlife247/* $WEB_ROOT/
 
 # Set ownership and permissions
-sudo chown -R nginx:nginx $WEB_ROOT
+sudo chown -R www-data:www-data $WEB_ROOT
 sudo find $WEB_ROOT/ -type d -exec chmod 755 {} \;
 sudo find $WEB_ROOT/ -type f -exec chmod 644 {} \;
 
@@ -162,18 +162,14 @@ sudo sed -i "s/seaminstore.com/$DOMAIN/g" $SQL_FILE
 echo "Importing the database..."
 mysql -u$DB_USER -p$DB_PASS $DB_NAME < $SQL_FILE
 
-# Step 6: Temporarily Set SELinux to Permissive Mode
-echo "Setting SELinux to permissive mode..."
-sudo setenforce 0
-
-# Step 7: Restart PHP-FPM and Nginx
+# Step 6: Restart PHP-FPM and Nginx
 echo "Restarting PHP-FPM and Nginx..."
-sudo systemctl restart php-fpm
+sudo systemctl restart php7.4-fpm
 sudo systemctl restart nginx
 
 # Step 8: Install Certbot for Let's Encrypt
 echo "Installing Certbot..."
-sudo dnf install certbot python3-certbot-nginx -y
+sudo apt install certbot python3-certbot-nginx -y
 
 # Step 9: Obtain an SSL Certificate
 echo "Obtaining an SSL certificate..."
@@ -197,8 +193,8 @@ sudo systemctl reload nginx
 echo "Setting up automatic certificate renewal..."
 sudo crontab -l | { cat; echo "30 2 1 * * /usr/bin/certbot renew --quiet --renew-hook 'systemctl reload nginx'"; } | sudo crontab -
 
-# Step 12: Updating SELinux to allow php-fpm
-echo "Updating SELinux to allow php-fpm"
-sudo yum install policycoreutils-python-utils
-sudo audit2allow -a -M my_php_fpm_policy
-sudo semodule -i my_php_fpm_policy.pp
+# Final step: Set proper permissions
+echo "Setting final permissions..."
+sudo chown -R www-data:www-data $WEB_ROOT
+sudo find $WEB_ROOT -type d -exec chmod 755 {} \;
+sudo find $WEB_ROOT -type f -exec chmod 644 {} \;
