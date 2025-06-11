@@ -455,8 +455,8 @@ main() {
     sudo chown "$USER:$USER" "$LOG_FILE"
     
     # Perform checks
-    check_root
-    check_sudo
+    # check_root
+    # check_sudo
     
     # Collect input if not resuming
     local current_step=$(check_progress)
