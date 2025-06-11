@@ -102,8 +102,8 @@ sudo sed -i 's/post_max_size = .*/post_max_size = 1024M/' /etc/php/7.4/fpm/php.i
 sudo sed -i 's/max_execution_time = .*/max_execution_time = 300/' /etc/php/7.4/fpm/php.ini
 
 # Start and enable PHP-FPM
-sudo systemctl start php-fpm
-sudo systemctl enable php-fpm
+sudo systemctl start php7.4-fpm
+sudo systemctl enable php7.4-fpm
 
 # Step 4: Configure Nginx for WordPress
 echo "Configuring Nginx for WordPress..."
