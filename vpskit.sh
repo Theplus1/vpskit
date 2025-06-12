@@ -37,6 +37,7 @@ function show_help() {
     echo "  add-domain            Add a new sellpage domain"
     echo "  add-domain {domain}   Quick add a new sellpage domain"
     echo "  build-buyer-web       Build buyer web"
+    echo "  clone-payment-core    Clone payment core"
     echo ""
     echo "Options:"
     echo "  -help | -h            Show this help message"
@@ -83,7 +84,10 @@ case $1 in
   build-buyer-web)
     $INSTALL_DIR/bin/build-buyer-web.sh
     ;;
-  *)
+  clone-payment-core)
+    $INSTALL_DIR/bin/clone-payment-core.sh
+    ;;
+    *)
     echo "Error: Invalid command"
     show_help
     exit 1
